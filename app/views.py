@@ -12,6 +12,10 @@ login_manager.anonymous_user = AnonymousUser
 def unauthorized():
   return 'Unauthorized!', 403
 
+@login_manager.user_loader
+def load_user(user_id):
+    return user_datastore.find_user(id=user_id)
+
 @app.route('/accounts/register', methods=['POST'])
 def register():
   form = forms.RegistrationForm()
