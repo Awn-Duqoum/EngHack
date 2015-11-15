@@ -102,7 +102,7 @@ def add5():
   	db.session.commit()
   	return list()
 
-@app.route('/Class/list')
+@app.route('/Class/list_class')
 def list_class():
 	return json.dumps(map(lambda x: x.to_json(), models.Class.query.all()))
 
@@ -115,4 +115,4 @@ def addclass():
 	# 	db.session.commit()
 	# except:
 	# 	return "Not a unique course number"
-	return redirect(url_for('/Class/list'))
+	return redirect(url_for('list_class'))
