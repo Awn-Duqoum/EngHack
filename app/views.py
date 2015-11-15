@@ -113,4 +113,4 @@ def addclass():
 	# 	db.session.commit()
 	# except:
 	# 	return "Not a unique course number"
-	return list_class()
+	return ""
