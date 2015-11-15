@@ -35,10 +35,10 @@ class Class(db.Model):
 	name = db.Column(db.String(100))
 
 	def to_json(self):
-		return{
+		return {
 		  'class_id': self.class_id,
 		  'name': self.name
-	}
+		}
 
 # Define models
 roles_users = db.Table('roles_users',

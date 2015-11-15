@@ -11,8 +11,8 @@ class LoginForm(Form):
     password = StringField('password', validators=[])
 
 class ClassForm(Form):
-	class_id = StringField('class_id', validators=[DataRequired()])
-	name = StringField('name', validators=[DataRequired()])
+	class_id = StringField('class_id', validators=[])
+	name = StringField('name', validators=[])
 
 
 class EventForm(Form):
