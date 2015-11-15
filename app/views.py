@@ -3,6 +3,7 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 import json
 import random
 import datetime
+import sys
 
 from flask.ext.security import AnonymousUser
 
@@ -99,10 +100,17 @@ def add5():
   	db.session.commit()
   	return list()
 
-@app.route('/Class/Add', methods=['POST'])
+@app.route('/Class/list')
+def list_class():
+	return json.dumps(map(lambda x: x.to_json(), models.Class.query.all()))
+
+@app.route('/Class/Add')
 def addclass():
 	form = forms.ClassForm()
 	tempClass = models.Class(class_id = form.class_id, name = form.name)
-	db.session.add(tempClass)
-	db.session.commit()
-	return json.dumps(map(lambda x: x.to_json(), models.Class.query.all()))
+	try:
+		db.session.add(tempClass)
+		db.session.commit()
+	except:
+		return "Not a unique course number"
+	return list_class()
