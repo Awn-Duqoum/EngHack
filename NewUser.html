@@ -16,7 +16,7 @@ div {
   <meta name="The New User Page" content="The HTML5 Herald">
   <meta name="Awn Duqoum" content="SitePoint">
 </head>
-
+<script src="jquery-2.1.4.js"></script>
 <script>
 function PasswordsMatch ()
 {
@@ -51,7 +51,6 @@ function PasswordsMatch ()
 	{
 		status = 0;
 		document.getElementById("EmailLine").innerHTML = "<p style='color:red'> <b> Please Enter a Proper @Uwaterloo.ca email </b> </p>";
-		
 	}
 	status = PasswordsMatch ();
 	if((password.length) <= 8)
@@ -66,13 +65,30 @@ function PasswordsMatch ()
 	}
 	
 	if(status == 1 )
-		window.location.href = "SubmitUserSuccessPage.html";
+	{
+		var BaseURL = "http://events.sleep.build/";
+		BaseURL += "accounts/register";
+		$.ajax({
+			type: 'POST',
+			url: BaseURL,
+			data: {
+				'email': email,
+				'password': password
+			},
+			success: function (response) {
+				window.href.location = "AfterLogInPage.html";
+			},
+			error: function (response) {
+				window.alert("failure");
+			}
+		});
+	}
 	else 
 	{
 		document.getElementById("PassWordLine").innerHTML = error;
 		return false;
 	}
-		
+	window.alert();
 }
 </script>
 

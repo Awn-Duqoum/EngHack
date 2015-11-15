@@ -8,7 +8,7 @@ div {
   transform: translate(-50%, -50%);
 }
 </style>
-
+<script src="jquery-2.1.4.js"></script>
 <script>
 
 function ValidateInput ()
@@ -16,6 +16,14 @@ function ValidateInput ()
 	var oldLocation = window.location.href;
 	var UserName = document.getElementById("UserNameLineEdit").value;
 	var Password = document.getElementById("PasswordLineEdit").value;
+	
+	var n = UserName.search(/@Uwaterloo.ca/i);
+	if(n == -1)
+	{
+		status = 0;
+		document.getElementById("FirstLine").innerHTML = "Email: <p style='color:red'> <b> Please Enter a Proper @Uwaterloo.ca email </b> </p>";
+		return oldLocation;
+	}
 	
 	if(UserName == "" || UserName == " ")
 	{
@@ -25,13 +33,21 @@ function ValidateInput ()
 	{
 		window.alert("Invaild Password");
 	}
+	var BaseURL = "http://events.sleep.build/";
 	
-	<!-- var Truth = ValidateLogin(); -->
-	var Truth = 1;
-	if(Truth == 1)
-	{
-		document.getElementById("FirstLine").innerHTML = "UserName <br> <p style='Color:red'> <b> Wrong UserName/Password </b> </p>";
-	}
+	var Truth = $ajax({ 
+		type : 'GET', 
+		url:BaseURL + "/accounts/login",
+		data:{'email': UserName, 'password' : Password}, 
+		success : function(response)
+		{
+			window.href.location = "AfterLogInPage.html";
+		},
+		error : function(response)
+		{
+			document.getElementById("FirstLine").innerHTML = "Email: <br> <p style='Color:red'> <b> Wrong UserName/Password </b> </p>";
+		}
+		});
 	return oldLocation;
 }
 
@@ -48,7 +64,7 @@ function ValidateInput ()
 
 <div title="Login Block" Tag = "Main"> 
 	<form onsubmit="ValidateInput(); return false;">
-		<p id = "FirstLine" > UserName </p>
+		<p id = "FirstLine" > Email: </p>
 		<input type="text" name="UserName" id = "UserNameLineEdit" required>
 		<p> Password </p>
 		<input type="Password" name="Password" id= "PasswordLineEdit" required> 

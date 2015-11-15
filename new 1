@@ -1,0 +1,23 @@
+<!doctype html>
+
+<style>	
+
+</style>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title> TEMPTITLE - After Login  </title>
+  <meta name="The Find Class Page" content="The HTML5 Herald">
+  <meta name="Awn Duqoum" content="SitePoint">
+</head>
+
+
+<body>
+<div id= "MenuBar">
+	<h1> Logout Success </h1>
+</div>	
+</body>
+</html>
+
+<!-- EOF --> 
