@@ -107,7 +107,7 @@ def list_class():
 @app.route('/Class/Add')
 def addclass():
 	form = forms.ClassForm()
-	tempClass = models.Class(class_id = form.class_id, name = form.name)
+	tempClass = models.Class(class_id = str(form.class_id), name = str(form.name))
 	try:
 		db.session.add(tempClass)
 		db.session.commit()
