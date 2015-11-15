@@ -82,6 +82,12 @@ div {
 	width : 10%;
 	padding:  5px;
 }
+#AddEvent{
+	position: absolute;
+	right: 485px;
+	width : 10%;
+	padding:  5px;
+}
 #tasks {
 	padding: 5px;
 }
@@ -164,11 +170,11 @@ function Exit()
 	url:BaseURL + "/accounts/logout", 
 	success : function(response)
 	{
-		window.location.href = "SubmitUserSuccessPage.html";
+		window.location.href = "LogoutPage.html";
 	},
 	error : function(response)
 	{
-		window.alert("Log out failed")
+		window.location.href = "LogoutPage.html";
 	}
 	});
 }
@@ -306,6 +312,22 @@ function CreateCSV()
 	link.setAttribute("download", "my_data.csv");
 	link.click();
 }
+function AddEvent()
+{
+	var StartDate = prompt("What day does the event start? ", "11/15/2015");
+	var EndDate = prompt("What day dose the event end ?", "11/15/2015");
+	var StartTime = prompt("Start time ?", "8:00am");
+	var EndTime = prompt("End time?", "4:30pm");
+	var Location = prompt("Where ? ", "RCH");
+	var Disc = prompt("More info ", " Class must all praise the tool this day and all days");
+	
+	var values = ["CS 246 - Object-Oriented Software Development","",StartDate,EndDate, "No", StartTime, EndTime, Location, Disc];
+	var temp = document.getElementById("ListContain").innerHTML;
+	document.getElementById("ListContain").innerHTML = GetInnerHTMLString(values);
+	document.getElementById("ListContain").innerHTML += temp;
+	
+}
+
 
 </script>
 
