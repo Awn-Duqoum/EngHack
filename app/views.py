@@ -33,7 +33,7 @@ def register():
 @app.route('/accounts/logout', methods=['POST', 'GET'])
 def logout():
   logout_user()
-  return ''
+  return '', 200
 
 @app.route('/accounts/login', methods=['POST'])
 def login():
@@ -113,4 +113,4 @@ def addclass():
 	# 	db.session.commit()
 	# except:
 	# 	return "Not a unique course number"
-	return "aaaa"
+	return '', 200
