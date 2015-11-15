@@ -11,12 +11,12 @@ class LoginForm(Form):
     password = StringField('password', validators=[])
 
 class ClassForm(Form):
-	class_id = StringField('ClassID', validators=[DataRequired()])
+	class_id = StringField('ClassId', validators=[DataRequired()])
 	name = StringField('ClassName', validators=[DataRequired()])
 
 
 class EventForm(Form):
-	class_id = StringField('ClassID', validators=[DataRequired()])
+	class_id = StringField('ClassId', validators=[DataRequired()])
 	subject = StringField('Subject', validators=[DataRequired()])
 	start_date = DateField('StartDate', format='%m/%d/%y', validators=[DataRequired()])
 	end_date = DateField('EndDate', format='%m/%d/%y', validators=[DataRequired()])
