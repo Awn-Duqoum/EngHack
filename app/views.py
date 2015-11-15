@@ -1,5 +1,7 @@
 from app import app, db, models, user_datastore, forms, login_manager
+from flask.ext.wtf import Form
 from flask.ext.login import login_user, logout_user, login_required, current_user
+from flask import redirect, url_for
 import json
 import random
 import datetime
@@ -113,4 +115,4 @@ def addclass():
 	# 	db.session.commit()
 	# except:
 	# 	return "Not a unique course number"
-	return '', 200
+	return redirect(url_for('index'))
