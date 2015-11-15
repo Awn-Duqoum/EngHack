@@ -36,7 +36,7 @@ class Class(db.Model):
 
 	def to_json(self):
 		return{
-		  'class_id': self.class_id
+		  'class_id': self.class_id,
 		  'name': self.name
 	}
 
