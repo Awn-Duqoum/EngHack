@@ -110,6 +110,7 @@ def list_class():
 def addclass():
 	form = forms.ClassForm()
 	tempClass = models.Class(class_id = str(form.class_id.data), name = str(form.name.data))
+	print tempClass.class_id
 	try:
 		db.session.add(tempClass)
 		db.session.commit()
