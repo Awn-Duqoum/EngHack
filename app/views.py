@@ -28,7 +28,8 @@ def register():
       print(error)
   return '', 403
 
-@app.route('/accounts/logout')
+
+@app.route('/accounts/logout', methods=['POST'])
 def logout():
   logout_user()
   return ''
