@@ -5,12 +5,13 @@ class Event(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   subject = db.Column(db.String(64))
   start_date = db.Column(db.Date, index=True)
+  end_date = db.Column(db.Date)
   all_day = db.Column(db.Boolean)
   start_time = db.Column(db.Time, index=True)
   end_time = db.Column(db.Time)
   location = db.Column(db.String(100))
   description = db.Column(db.String(500))
-  class_id = db.Column(db.Integer, index=True)
+  class_id = db.Column(db.String, index=True)
 
   def __repr__(self):
   	return "{} {} {} {} {} {} {} {}".format(self.subject, self.start_date.strftime("%m/%d/%y"), str(self.all_day), self.start_time.strftime("%I:%M %p"), self.end_time.strftime("%I:%M %p"), self.location, self.description, self.class_id) 
@@ -19,6 +20,7 @@ class Event(db.Model):
     return {
       'subject': self.subject,
       'start_date': self.start_date.strftime("%m/%d/%y"),
+      'end_date': self.end_date.strftime("%m/%d/%y"),
       'all_day': str(self.all_day),
       'start_time': self.start_time.strftime("%I:%M %p"),
       'end_time': self.end_time.strftime("%I:%M %p"),

@@ -60,7 +60,7 @@ def list():
 
 @app.route('/Event/add')
 def add():
-  t = models.Event(subject = "TestEvent", start_date = datetime.date(2015, 10, 25), all_day=False, start_time=datetime.time(11, 0), end_time=datetime.time(11, 30), location="HiHi Home", description="This is a test case", class_id = "CS220")
+  t = models.Event(subject = "TestEvent", start_date = datetime.date(2015, 10, 25), end_time = datetime.date(2015, 10, 25), all_day=False, start_time=datetime.time(11, 0), end_time=datetime.time(11, 30), location="HiHi Home", description="This is a test case", class_id = "CS220")
   db.session.add(t)
   db.session.commit()
   return list()
@@ -89,7 +89,7 @@ def Qry():
 @app.route('/Event/add5')
 def add5():
 	for i in range(5):	
-  		t = models.Event(subject = "TestEvent", start_date = datetime.date(2015, 10, i+1), all_day=False, start_time=datetime.time(11, 0), end_time=datetime.time(11, 30), location="HiHi Home", description="This is a test case", class_id = "CS24{}".format(str(i)))
+  		t = models.Event(subject = "TestEvent", start_date = datetime.date(2015, 10, i+1), end_date = datetime.date(2015, 10, i+1), all_day=False, start_time=datetime.time(11, 0), end_time=datetime.time(11, 30), location="HiHi Home", description="This is a test case", class_id = "CS24{}".format(str(i)))
 		db.session.add(t)
   	db.session.commit()
   	return list()
