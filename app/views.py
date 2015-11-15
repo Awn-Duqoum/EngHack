@@ -57,18 +57,18 @@ def list_users():
 @app.route('/')
 @app.route('/hello_world')
 def hello_world():
-  return "Hello, world!"
+	return "Hello, world!"
 
 @app.route('/Event/list')
 def list():
-  return json.dumps(map(lambda x: x.to_json(), models.Event.query.all()))
+	return json.dumps(map(lambda x: x.to_json(), models.Event.query.all()))
 
 @app.route('/Event/add')
 def add():
-  t = models.Event(subject = "TestEvent", start_date = datetime.date(2015, 10, 25), end_date = datetime.date(2015, 10, 25), all_day=False, start_time=datetime.datetime.strptime("11:00 PM", "%I:%M %p"), end_time=datetime.datetime.strptime("11:30 PM", "%I:%M %p"), location="HiHi Home", description="This is a test case", class_id = "CS220")
-  db.session.add(t)
-  db.session.commit()
-  return list()
+	t = models.Event(subject = "TestEvent", start_date = datetime.date(2015, 10, 25), end_date = datetime.date(2015, 10, 25), all_day=False, start_time=datetime.datetime.strptime("11:00 PM", "%I:%M %p"), end_time=datetime.datetime.strptime("11:30 PM", "%I:%M %p"), location="HiHi Home", description="This is a test case", class_id = "CS220")
+	db.session.add(t)
+	db.session.commit()
+	return list()
 
 @app.route('/Event/deletefirst')
 def delete_first():
@@ -98,3 +98,11 @@ def add5():
 		db.session.add(t)
   	db.session.commit()
   	return list()
+
+@app.route('/Class/Add', methods=['POST'])
+def addclass():
+	form = forms.ClassForm()
+	tempClass = models.Class(class_id = form.class_id, name = form.name)
+	db.session.add(tempClass)
+	db.session.commit()
+	return list()

@@ -34,6 +34,12 @@ class Class(db.Model):
 	class_id = db.Column(db.String(10), index=True, unique=True)
 	name = db.Column(db.String(100))
 
+	def to_json(self):
+		return{
+		  'class_id': self.class_id
+		  'name': self.name
+	}
+
 # Define models
 roles_users = db.Table('roles_users',
   db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
