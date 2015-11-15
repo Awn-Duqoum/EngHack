@@ -10,7 +10,7 @@ login_manager.anonymous_user = AnonymousUser
 
 @login_manager.unauthorized_handler
 def unauthorized():
-  return 'Unauthorized!', 403
+  return 'Unauthorized!', 401
 
 @login_manager.user_loader
 def load_user(user_id):
