@@ -108,13 +108,5 @@ def list_class():
 
 @app.route('/Class/Add', methods=['GET', 'POST'])
 def addclass():
-	form = forms.ClassForm()
-	tempClass = models.Class(class_id = str(form.class_id.data), name = str(form.name.data))
-	print tempClass.class_id
-	try:
-		db.session.add(tempClass)
-		db.session.commit()
-		return 200
-	except:
-		return list_class(), 500
-	
+	return '', 200
+		
