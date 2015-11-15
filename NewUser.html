@@ -1,0 +1,101 @@
+<!doctype html>
+
+<style>
+div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title> TEMPTITLE - New User </title>
+  <meta name="The New User Page" content="The HTML5 Herald">
+  <meta name="Awn Duqoum" content="SitePoint">
+</head>
+
+<script>
+function PasswordsMatch ()
+{
+	var password = document.getElementById("PassWordLineEdit").value;
+	var Cpassword = document.getElementById("PassWordComfirmLineEdit").value;
+	if (password != Cpassword)
+	{
+		document.getElementById("PassWordLine").innerHTML = "Password : <p style='color:red'> <b> Passwords dont match </b> </p>";
+		return 0;
+	}
+	else
+	{
+		document.getElementById("PassWordLine").innerHTML = "Password ";
+		return 1;
+	}
+
+}
+
+ function VailidateUser ()
+{
+	var status = 1;
+	
+	var email = document.getElementById("EmailLineEdit").value;
+	var displayName = document.getElementById("DisplayNameLineEdit").value;
+	var password = document.getElementById("PassWordLineEdit").value;
+	var Cpassword = document.getElementById("PassWordComfirmLineEdit").value;
+	
+	var error = "Email: ";
+	
+	var n = email.search(/@Uwaterloo.ca/i);
+	if(n == -1)
+	{
+		status = 0;
+		document.getElementById("EmailLine").innerHTML = "<p style='color:red'> <b> Please Enter a Proper @Uwaterloo.ca email </b> </p>";
+		
+	}
+	status = PasswordsMatch ();
+	if((password.length) <= 8)
+	{
+		status = 0;
+		error += "<p style='color:red'> <b> Passwords must be at least 8 characters long </b> </p>";
+	}
+	if(password.search(" ") != -1)
+	{
+		status = 0;
+		error += "<p style='color:red'> <b> Passwords cannot have spaces </b> </p>";
+	}
+	
+	if(status == 1 )
+		window.location.href = "SubmitUserSuccessPage.html";
+	else 
+	{
+		document.getElementById("PassWordLine").innerHTML = error;
+		return false;
+	}
+		
+}
+</script>
+
+<body>
+<form onsubmit="VailidateUser(); return false;">
+	<div>
+		<p> Yaaaayy!! Thanks for wanting to join, you're the best</p>
+		<p id="EmailLine"> Email: </p>
+		<input type="Text" id="EmailLineEdit" required>
+		<br><br>
+		<p id="DisplayNameLine"> Display Name: </p>
+		<input type="Text" id="DisplayNameLineEdit" required>
+		<br><br>
+		<p id="PassWordLine"> Password : </p>
+		<input type="password" id="PassWordLineEdit"  oninput="PasswordsMatch()" required>
+		<br><br>
+		<p id="CpasswordLine"> Confirm Password: </p>
+		<input type="password" id="PassWordComfirmLineEdit"  oninput="PasswordsMatch()" required>
+		<br><br>
+		<input type="submit">
+		<br>
+	</div>	
+</form>
+
+</body>
+</html>

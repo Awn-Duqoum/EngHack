@@ -1,0 +1,32 @@
+<!doctype html>
+
+<style>
+div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title> TEMPTITLE - New User </title>
+  <meta name="The Find Class Page" content="The HTML5 Herald">
+  <meta name="Awn Duqoum" content="SitePoint">
+</head>
+
+<script>
+ 
+</script>
+
+<body>
+<div>
+	<h1> Password reset successful </h1>
+	<p> Check your email for what to do next </p>
+</div>	
+
+
+</body>
+</html>
