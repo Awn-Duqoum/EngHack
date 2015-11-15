@@ -108,11 +108,12 @@ def list_class():
 
 @app.route('/Class/Add', methods=['GET', 'POST'])
 def addclass():
-	#form = forms.ClassForm()
-	# tempClass = models.Class(class_id = form.class_id.data, name = form.name.data)
-	# try:
-	# 	db.session.add(tempClass)
-	# 	db.session.commit()
-	# except:
-	# 	return "Not a unique course number"
-	return list_class(), 500
+	form = forms.ClassForm()
+	tempClass = models.Class(class_id = form.class_id.data, name = form.name.data)
+	try:
+		db.session.add(tempClass)
+		db.session.commit()
+		return 200
+	except:
+		return list_class(), 500
+	
