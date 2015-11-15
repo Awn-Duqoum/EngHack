@@ -105,4 +105,4 @@ def addclass():
 	tempClass = models.Class(class_id = form.class_id, name = form.name)
 	db.session.add(tempClass)
 	db.session.commit()
-	return list()
+	return json.dumps(map(lambda x: x.to_json(), models.Class.query.all()))
