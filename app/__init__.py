@@ -1,10 +1,12 @@
 from flask import Flask
+from flask.ext.cors import CORS
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
