@@ -106,7 +106,7 @@ def add5():
 def list_class():
 	return json.dumps(map(lambda x: x.to_json(), models.Class.query.all()))
 
-@app.route('/Class/Add', methods=['POST'])
+@app.route('/Class/Add', methods=['GET', 'POST'])
 def addclass():
 	#form = forms.ClassForm()
 	# tempClass = models.Class(class_id = form.class_id.data, name = form.name.data)
