@@ -29,7 +29,7 @@ def register():
   return '', 403
 
 
-@app.route('/accounts/logout', methods=['POST'])
+@app.route('/accounts/logout')
 def logout():
   logout_user()
   return ''
