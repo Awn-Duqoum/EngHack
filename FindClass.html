@@ -1,4 +1,15 @@
+<!doctype html>
 
+<style>
+div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}z
+</style>
+
+<script src="jquery-2.1.4.js"></script>
 
 <html lang="en">
 <head>
@@ -10,6 +21,8 @@
 
 <script>
 
+var FullNames = ["Accounting & Financial Management","Actuarial Science","Anthropology","Applied Health Sciences","Applied Language Studies","Applied Mathematics","Architecture","Arts","Arts and Business","Aviation    ","Bridge to Academic Success in English","Biology","Biomedical Engineering","Business (Wilfrid Laurier University)","Business, Entrepreneurship and Technology","Chemical Engineering","Chemistry","Chinese","Church Music and Worship","Civil Engineering","Classical Studies","Cognitive Science","Combinatorics and Optimization","Commerce ","Computer Science","Co-operative Work Term","Croatian","Digital Arts Communication","Drama","Dutch","Earth Sciences","East Asian","Economics","Electrical and Computer Engineering","English","English for Academic Success  ","English for Multilingual Speakers","Environment and Business    ","Environment and Resource Studies","Environmental Engineering","Environmental Studies","Fine Arts","French","General Engineering","Geography and Environmental Management","Geological Engineering","German","Gerontology","Global Business and Digital Arts","Greek","Health","History","Human Resources Management","Human Sciences","Independent Studies","International Development","International Studies","International Trade","Italian","Italian Studies","Japanese","Jewish Studies","Kinesiology","Knowledge Integration","Korean","Latin","Legal Studies","Mathematical Business","Management Sciences","Materials and Nano-Sciences","Mathematics","Mathematics Electives","Mechanical Engineering","Mechatronics Engineering","Medieval Studies","Music","Nanotechnology Engineering","Native Studies","Optometry","Peace and Conflict Studies","Pharmacy","Philosophy","Physics","Planning","Polish","Political Science","Portuguese","Professional Development","Professional Development for Architecture Students","Professional Development for Pharmacy Students     ","Psychology","Pure Mathematics","Recreation and Leisure Studies","Religious Studies","Russian","Russian and East European Studies","Science","Science and Business","Sexuality, Marriage, and Family Studies","Social Development Studies","Social Work (Social Development Studies)","Social Work (Bachelor of Social Work)","Society, Technology and Values","Sociology","Software Engineering","Spanish","Speech Communication","Statistics","Studies in Islam       ","Systems Design Engineering","University","Visual Culture ","Women's Studies","Work-term Report"];
+var CodeName  = ["AFM","ACTSC ","ANTH ","AHS","APPLS ","AMATH","ARCH ","ARTS ","ARBUS ","AVIA ","BASE","BIOL ","BME","BUS ","BET ","CHE ","CHEM ","CHINA ","CMW","CIVE ","CLAS ","COGSCI","CO ","COMM ","CS","COOP ","CROAT ","DAC ","DRAMA","DUTCH ","EARTH ","EASIA ","ECON ","ECE ","ENGL ","EFAS","EMLS","ENBUS ","ERS ","ENVE ","ENVS ","FINE ","FR ","GENE ","GEOG ","GEOE ","GER ","GERON ","GBDA ","GRK ","HLTH ","HIST ","HRM ","HUMSC ","IS ","INDEV ","INTST ","INTTS","ITAL ","ITALST ","JAPAN ","JS ","KIN ","INTEG ","KOREA ","LAT ","LS ","MATBUS ","MSCI","MNS ","MATH ","MTHEL ","ME ","MTE ","MEDVL ","MUSIC ","NE ","NATST ","OPTOM ","PACS ","PHARM ","PHIL ","PHYS ","PLAN ","POLSH ","PSCI ","PORT ","PD ","PDARCH","PDPHRM ","PSYCH ","PMATH ","REC ","RS ","RUSS ","REES ","SCI ","SCBUS ","SMF ","SDS ","SOCWK","SWREN ","STV ","SOC ","SE ","SPAN ","SPCOM ","STAT ","SI ","SYDE ","UNIV","VCULT ","WS ","WKRPT "];
 
 function DeCodeClass ()
 {
@@ -33,6 +46,7 @@ function DeCodeClass ()
 		}
 	}
 }
+
 function ValidateClass ()
 {
 	 var ClassID = document.getElementById("ClassIDLineEdit").value;

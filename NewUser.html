@@ -76,7 +76,7 @@ function PasswordsMatch ()
 				'password': password
 			},
 			success: function (response) {
-				window.href.location = "AfterLogInPage.html";
+				window.location.href = "AfterLogInPage.html";
 			},
 			error: function (response) {
 				window.alert("failure");
@@ -88,7 +88,6 @@ function PasswordsMatch ()
 		document.getElementById("PassWordLine").innerHTML = error;
 		return false;
 	}
-	window.alert();
 }
 </script>
 

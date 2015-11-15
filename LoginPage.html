@@ -35,17 +35,17 @@ function ValidateInput ()
 	}
 	var BaseURL = "http://events.sleep.build/";
 	
-	var Truth = $ajax({ 
-		type : 'GET', 
+	$.ajax({ 
+		type : 'POST', 
 		url:BaseURL + "/accounts/login",
-		data:{'email': UserName, 'password' : Password}, 
+		data:{'email':UserName, 'password':Password}, 
 		success : function(response)
 		{
-			window.href.location = "AfterLogInPage.html";
+			window.location.href = "AfterLogInPage.html";
 		},
 		error : function(response)
 		{
-			document.getElementById("FirstLine").innerHTML = "Email: <br> <p style='Color:red'> <b> Wrong UserName/Password </b> </p>";
+			alert("Login Failed");
 		}
 		});
 	return oldLocation;

@@ -20,7 +20,7 @@ body {
 	background-color: blue;
 	padding: 5px;
 }
-#MenuBar button 
+#LogOut 
 {
 	position: absolute;
     right: 2px;
@@ -57,13 +57,34 @@ body {
 	width : 76.73%;
 	margin: 0px;
 	padding:10px;
-	overflow:hidden;
+	overflow:scroll;
 	padding-bottom:0px;
 }
 div {
     border:1px solid #333;
 }
-
+#Search {
+	position: absolute;
+	right: 70px;
+	width : 10%;
+	padding:  5px;	
+}
+#AddClass 
+{
+	position: absolute;
+	right: 207px;
+	width : 10%;
+	padding:  5px;
+}
+#Export{
+	position: absolute;
+	right: 345px;
+	width : 10%;
+	padding:  5px;
+}
+#tasks {
+	padding: 5px;
+}
 </style>
 
 <html lang="en">
@@ -78,24 +99,31 @@ div {
 var FullNames = ["Accounting & Financial Management","Actuarial Science","Anthropology","Applied Health Sciences","Applied Language Studies","Applied Mathematics","Architecture","Arts","Arts and Business","Aviation    ","Bridge to Academic Success in English","Biology","Biomedical Engineering","Business (Wilfrid Laurier University)","Business, Entrepreneurship and Technology","Chemical Engineering","Chemistry","Chinese","Church Music and Worship","Civil Engineering","Classical Studies","Cognitive Science","Combinatorics and Optimization","Commerce ","Computer Science","Co-operative Work Term","Croatian","Digital Arts Communication","Drama","Dutch","Earth Sciences","East Asian","Economics","Electrical and Computer Engineering","English","English for Academic Success  ","English for Multilingual Speakers","Environment and Business    ","Environment and Resource Studies","Environmental Engineering","Environmental Studies","Fine Arts","French","General Engineering","Geography and Environmental Management","Geological Engineering","German","Gerontology","Global Business and Digital Arts","Greek","Health","History","Human Resources Management","Human Sciences","Independent Studies","International Development","International Studies","International Trade","Italian","Italian Studies","Japanese","Jewish Studies","Kinesiology","Knowledge Integration","Korean","Latin","Legal Studies","Mathematical Business","Management Sciences","Materials and Nano-Sciences","Mathematics","Mathematics Electives","Mechanical Engineering","Mechatronics Engineering","Medieval Studies","Music","Nanotechnology Engineering","Native Studies","Optometry","Peace and Conflict Studies","Pharmacy","Philosophy","Physics","Planning","Polish","Political Science","Portuguese","Professional Development","Professional Development for Architecture Students","Professional Development for Pharmacy Students     ","Psychology","Pure Mathematics","Recreation and Leisure Studies","Religious Studies","Russian","Russian and East European Studies","Science","Science and Business","Sexuality, Marriage, and Family Studies","Social Development Studies","Social Work (Social Development Studies)","Social Work (Bachelor of Social Work)","Society, Technology and Values","Sociology","Software Engineering","Spanish","Speech Communication","Statistics","Studies in Islam       ","Systems Design Engineering","University","Visual Culture ","Women's Studies","Work-term Report"];
 var CodeName  = ["AFM","ACTSC ","ANTH ","AHS","APPLS ","AMATH","ARCH ","ARTS ","ARBUS ","AVIA ","BASE","BIOL ","BME","BUS ","BET ","CHE ","CHEM ","CHINA ","CMW","CIVE ","CLAS ","COGSCI","CO ","COMM ","CS","COOP ","CROAT ","DAC ","DRAMA","DUTCH ","EARTH ","EASIA ","ECON ","ECE ","ENGL ","EFAS","EMLS","ENBUS ","ERS ","ENVE ","ENVS ","FINE ","FR ","GENE ","GEOG ","GEOE ","GER ","GERON ","GBDA ","GRK ","HLTH ","HIST ","HRM ","HUMSC ","IS ","INDEV ","INTST ","INTTS","ITAL ","ITALST ","JAPAN ","JS ","KIN ","INTEG ","KOREA ","LAT ","LS ","MATBUS ","MSCI","MNS ","MATH ","MTHEL ","ME ","MTE ","MEDVL ","MUSIC ","NE ","NATST ","OPTOM ","PACS ","PHARM ","PHIL ","PHYS ","PLAN ","POLSH ","PSCI ","PORT ","PD ","PDARCH","PDPHRM ","PSYCH ","PMATH ","REC ","RS ","RUSS ","REES ","SCI ","SCBUS ","SMF ","SDS ","SOCWK","SWREN ","STV ","SOC ","SE ","SPAN ","SPCOM ","STAT ","SI ","SYDE ","UNIV","VCULT ","WS ","WKRPT "];
 
-function ValidateClass ()
+function ValidateClass()
 {
-	 var ClassID = document.getElementById("ClassIDLineEdit").value;
+	 var ClassID = prompt("Please Enter the Class ID (ex. CS100)", "MTE100");
+	 
+	 if(ClassID == "CS246")
+	 {
+	 document.getElementById("ListContain").innerHTML = "";
+		var values = ["CS246 - Object-Oriented Software Development","", "11/14/2015", "11/15/2015", "Yes", "2:00 pm", "12:00pm", "University", "EngHack"];
+		document.getElementById("ListContain").innerHTML = GetInnerHTMLString(values);
+		values = ["CS246 - Object-Oriented Software Development","", "11/16/2015", "11/16/2015", "No", "2:00 pm", "4:00pm", "University", "Cry about EngHack Results"];
+		document.getElementById("ListContain").innerHTML += GetInnerHTMLString(values);
+		values = ["CS246 - Object-Oriented Software Development","", "11/17/2015", "11/17/2015", "No", "2:00 pm", "3:00pm", "University", "Send Jar of tears to Jeff  "];
+		document.getElementById("ListContain").innerHTML += GetInnerHTMLString(values);
+		GetScud("246","CS");
+	 }
+	 
 	 ClassID = ClassID.replace(/\s+/g, '');
 	 
-	 if(ClassID.length <= 3)
-	 {
-		document.getElementById("FirstLine").innerHTML = "Enter the class ID below <br> <p style='color:red'> <b> Not a proper class ID </b> </p>";
-	 }
-	 else
-	 {
 		var courseName = ClassID;
 		var count = 0; 
 		courseName = courseName.replace(/[0-9]/g, '');
 		
 		
 		var link = "https://api.uwaterloo.ca/v2/courses/"+ courseName + ".json?key=b8e397c4182b835dd5e0d1306b176022";
-			$.ajax({type: 'GET', url: link}).done(function(response) 
+			$.ajax({type:'GET', url:link}).done(function(response) 
 			{
 			  if(response.meta.status == 200)
 			  {
@@ -107,96 +135,203 @@ function ValidateClass ()
 				{
 					if(response.data[count].catalog_number == classNumber)
 					{
-						var UWclass = '{"title": response.data[count].title ,"subject": response.data[count].subject,"catalog_number": response.data[count].catalog_number }';
-						var Object = JSON.parse(UWclass);
-						window.alert(UWclass);
-						//&.ajax({type: 'POST', url: "kk", data:}) to pass shetttt later 
+						GetScud(response.data[count].catalog_number,response.data[count].subject );
+						return;
 					}
 					else 
 						count ++;
 					if (count == length)
 					{
-						window.alert("Enter the class ID below <br> <p style='color:red'> <b> Not a proper class ID </b> </p>";)
 						return;
 					}
 				}
 			  }
 			  else
 				{
-					window.alert("Enter the class ID below <br> <p style='color:red'> <b> Not a proper class ID </b> </p>";)
+					window.alert("Enter the class ID below <br> <p style='color:red'> <b> Not a proper class ID </b> </p>");
 					return;
 				}
 			}
 			);
-	 }
  }
 
-function Exit ()
+function Exit()
 {
-	BaseURL = "http://events.sleep.build/";
-	$ajax({ 
-	type : 'GET', 
-	url:baseURL + "/accounts/logout", 
+	var BaseURL = "http://events.sleep.build/";
+	BaseURL += "accounts/logout";
+	$.ajax({ 
+	type : 'POST', 
+	url:BaseURL + "/accounts/logout", 
 	success : function(response)
 	{
-		window.href.location = "SubmitUserSuccessPage.html";
+		window.location.href = "SubmitUserSuccessPage.html";
 	},
 	error : function(response)
 	{
-		document.getElementById("FirstLine").innerHTML = "UserName <br> <p style='Color:red'> <b> Wrong UserName/Password </b> </p>";
+		window.alert("Log out failed")
 	}
 	});
 }
 
-function GetEvents ()
+function GetScud (classID, classFac)
 {
-		var classID = 
-		&.ajax({ 
-		type : 'GET', 
-		url:baseURL + "/accounts/register",
-		data:{'email': UserName, 'password' : Password}, 
-		success : function(response)
-		{
-			window.href.location = "SubmitUserSuccessPage.html";
-		},
-		error : function(response)
-		{
-			document.getElementById("FirstLine").innerHTML = "UserName <br> <p style='Color:red'> <b> Wrong UserName/Password </b> </p>";
-		}
+	var link = "https://api.uwaterloo.ca/v2/courses/" + classFac + "/"+ classID + "/schedule.json?key=b8e397c4182b835dd5e0d1306b176022";
+	$.ajax({type:'GET',url:link}).done(function(response) {
+		var array = response.data;
+			var numbClass = array.length;
+			var string = " ";
+			for(i = 0; i < numbClass; i++)
+			{
+				var classesNumb = response.data[i].classes.length;
+				for(j = 0; j < classesNumb; j++)
+				{
+					var values = [response.data[0].subject + response.data[0].catalog_number,
+					response.data[0].title,
+					response.data[i].classes[j].date.start_date,
+					response.data[i].classes[j].date.end_date,
+					"No",
+					response.data[i].classes[j].date.start_time,
+					response.data[i].classes[j].date.end_time,
+					response.data[i].classes[j].location.building + "  " + response.data[i].classes[j].location.room,
+					response.data[i].note
+					];
+					document.getElementById("ListContain").innerHTML += GetInnerHTMLString(values);
+				}
+			}
 		});
 }
 
 function GetInnerHTMLString (values)
 {
-	return ("<div> <p> <b> " + values[0] + " - "
-				             + values[1] + " </b></p><br>" + 
-			"<p> Start day " + values[2] + " To "          + 
-			                   values[3] + "</p><br>"      + 
-			"<p> All day event : "  + value[4] + "</p>"    +
-			"<p> From"       + values[5] + " To "          +
- 			                   values[6] + "</p><br>"      +
-			"<p> Location : " + value[7] +  "</p>" +
+	return ("<div id='tasks'> <p> <b> " + values[0] + " - "
+				             + values[1] + " </b></p>" + 
+			"<p> Start day " + "Sept. 14" + " To "          + 
+			                   "Dec. 4"   + "</p>"      + 
+			"<p> All day event : "  + values[4] + "</p>"    +
+			"<p> From "       + values[5] + " To "          +
+ 			                   values[6] + "</p>"      +
+			"<p> Location : " + values[7] +  "</p>" +
 			"<p> More infomation: " + values[8] + "</div>" );
 }
 
+function AddClass ()
+{
+	 var ClassID = prompt("Please Enter the Class ID (ex. CS100)", "MTE100");
+	 ClassID = ClassID.replace(/\s+/g, '');
+	 
+	var courseName = ClassID;
+	var count = 0; 
+	courseName = courseName.replace(/[0-9]/g, '');
+		
+		
+	var link = "https://api.uwaterloo.ca/v2/courses/"+ courseName + ".json?key=b8e397c4182b835dd5e0d1306b176022";
+		$.ajax({type:'GET', url:link}).done(function(response) 
+		{
+		  if(response.meta.status == 200)
+		  {
+	 		var length = response.data.length;
+			var count = 0;
+			var classNumber = ClassID;
+			var rightCount; 
+			classNumber = classNumber.substr((ClassID.toLowerCase().indexOf(courseName.toLowerCase().replace(/\s+/g, '')))+courseName.length,3);
+			while(count < length)
+			{
+				if(response.data[count].catalog_number == classNumber)
+				{
+					rightCount = count; 
+					count ++;
+				}
+				else 
+					count ++;
+			}
+			
+			var Classd = response.data[rightCount].subject.toUpperCase().replace(/\s+/g, '') + 
+					              response.data[rightCount].catalog_number.toUpperCase().replace(/\s+/g, '');
+			var ClassN = response.data[rightCount].title;
+						link = "http://events.sleep.build/"; 
+						link += "Class/Add";
+						
+			$.ajax({ 
+			type : 'POST', 
+			url:link,
+			data:{'class_id':Classd, 'name':ClassN}, 
+			success : function(response)
+			{
+				window.alert("Class added successfully");
+				document.getElementById("ListContain").innerHTML = "";
+				GetScud("100","MTE");
+				return; 
+			},
+			error : function(response)
+			{
+				alert("Addition Failed");
+				return;
+			}
+			});
+		  }
+		  else
+			{
+				window.alert("Enter the class ID below <br> <p style='color:red'> <b> Not a proper class ID </b> </p>");
+				return;
+			}
+		}
+		);
+}
+function CreateCSV()
+{
+	var data = [["Subject","Start Date","Start Time","End Date","End Time", "Location"],
+				["MTE Lecture", "11/16/2015", "8:30",  "11/16/2015", "9:20", "RCH 110"],
+				["MTE Lecture", "11/17/2015", "9:30",  "11/17/2015", "10:20", "RCH 110"],
+				["MTE Lecture", "11/18/2015", "10:30", "11/18/2015", "11:20", "RCH 110"],
+				["MTE Lecture", "11/19/2015", "11:30", "11/19/2015", "12:20", "RCH 110"],
+				["MTE Lecture", "11/20/2015", "12:30", "11/20/2015", "13:20", "RCH 110"],
+				["MTE Lecture", "11/23/2015", "8:30",  "11/23/2015", "9:20", "RCH 110"],
+				["MTE Lecture", "11/24/2015", "9:30",  "11/24/2015", "10:20", "RCH 110"],
+				["MTE Lecture", "11/25/2015", "10:30", "11/25/2015", "11:20", "RCH 110"],
+				["MTE Lecture", "11/26/2015", "11:30", "11/26/2015", "12:20", "RCH 110"],
+				["MTE Lecture", "11/27/2015", "12:30", "11/27/2015", "13:20", "RCH 110"],
+				["MTE Lecture", "11/30/2015", "8:30",  "11/30/2015", "9:20", "RCH 110"],
+				];
+				
+	var csvContent = "data:text/csv;charset=utf-8,";
+	data.forEach(function(infoArray, index){
+
+	dataString = infoArray.join(",");
+	csvContent += index < data.length ? dataString+ "\n" : dataString;
+	}); 
+
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", "my_data.csv");
+	link.click();
+}
 
 </script>
 
 <body>
 <div id= "MenuBar">
-	<button id="LogOut" onclick="Exit()"> Logout </button>
+	<button id= "Search" onclick="ValidateClass()"> Search For Class </button>
+	<button id= "AddClass" onclick="AddClass()"> Add Class </button>
+	<button id= "LogOut" onclick="Exit()"> Logout </button>
+	<button id= "Export" onclick="CreateCSV()"> Export File as CSV </button>
+	<button id= "AddEvent" onclick="AddEvent()"> Add a new event </button>
 </div>	
 
 <div id ="SuperWraper">
 	<div id="ListContain">
-		 <div>List Item </div>
+		 
 	</div>
 	
 	<div id="wrapper">
-	  <div id="sidebar">Fiter</div>
-	  <input type="checkbox" name="ClassTimes" value="Yes">Class Times <br>
-	  <input type="checkbox" name="ClassTimes" value="Yes">Test Times  <br>
-	  <input type="checkbox" name="ClassTimes" value="Yes">Class Times <br>
+	  <div id="sidebar">
+		  <p> <b> Filters </b> </p>
+		  <input type="checkbox" name="ClassTimes" value="Yes"> Class Times  </input> <br> 
+		  <input type="checkbox" name="TestTimes" value="Yes"> Test Times    </input> <br>
+		  <input type="checkbox" name="TutTimes" value="Yes"> Tutorial Times </input> <br>
+		  <input type="checkbox" name="LabTimes" value="Yes"> Lab Times      </input> <br>
+		  <input type="checkbox" name="Assignments" value="Yes"> Assignments </input> <br>
+	  </div>
 	</div>
 </div>
 </body>
