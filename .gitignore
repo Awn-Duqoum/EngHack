@@ -1,3 +1,5 @@
 flask/*
 app.db
 *.pyc
+.lighttpd.conf
+runProgram.cgi
