@@ -115,4 +115,4 @@ def addclass():
 	# 	db.session.commit()
 	# except:
 	# 	return "Not a unique course number"
-	return redirect(url_for('list_class'))
+	return json.dumps({'status':'OK'})
