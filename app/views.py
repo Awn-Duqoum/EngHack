@@ -112,5 +112,8 @@ def addclass():
 	temp_class = models.Class(class_id=form.class_id.data, name=form.name.data)
 	db.session.add(temp_class)
 	db.session.commit()
-	return '', 200
-		
+	return '', 200():
+	for C in models.Class.query.all():
+		db.session.delete(C)
+	db.session.commit()
+	return list_class()
